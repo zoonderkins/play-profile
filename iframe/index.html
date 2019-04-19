@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Iframe</title>
+</head>
+
+<body>
+
+  <div id="prevData">
+
+  </div>
+  <script>
+
+    let prevData = document.querySelector('#prevData')
+
+    let message, channel
+    let host = 'http://127.0.0.1'
+    let port = '5500'
+    const mount_url = `${host}:${port}/filesystem/index.html`
+    const iframe = document.createElement('iframe')
+    iframe.src = mount_url
+    iframe.style = 'border: 2px red solid; width: 80px; height: 80px;'
+    iframe.onload = send
+    document.body.appendChild(iframe)
+
+    // SEND
+    var obj = {
+      name: "Jack"
+    };
+    channel = iframe.contentWindow
+
+    function send(e) {
+
+      // Save object to subdomain / inner Iframe
+      channel.postMessage(JSON.stringify({ key: 'storage', method: "set", data: obj }), "*")
+
+    }
+    setTimeout(() => {
+      // console.log(channel.postMessage)
+      channel.postMessage(JSON.stringify({ key: 'storage', method: 'get' }), "*")
+      // var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+      // var eventer = window[eventMethod];
+      // var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+      // // Listen to message from child window
+      // eventer(messageEvent, function (e) {
+      //   console.log('parent received message!:  ', e.data);
+      // }, false);
+      window.addEventListener('message', function (e) {
+        let key = e.message ? 'message' : 'data';
+        let data = e[key];
+        console.log('parent message:', data)
+        //run function//
+      }, false);
+    }, 2000);
+
+
+    // Load previous saved iframe localstorage data
+    // Load
+    // setTimeout(() => {
+
+    //   divData.innerHTML = ({ ...localStorage }) != null ? JSON.stringify({ ...localStorage }) : "No data"
+    // }, 2000);
+
+
+    // window.onload = function () {
+    //   var iframe = document.getElementsByTagName('iframe')[0];
+    //   var win;
+    //   // some browser (don't remember which one) throw exception when you try to access
+    //   // contentWindow for the first time, it work when you do that second time
+    //   try {
+    //     win = iframe.contentWindow;
+    //   } catch (e) {
+    //     win = iframe.contentWindow;
+    //   }
+    //   var obj = {
+    //     name: "Jack"
+    //   };
+    //   // save obj in subdomain localStorage
+    //   win.postMessage(JSON.stringify({ key: 'storage', method: "set", data: obj }), "*");
+    //   window.onmessage = function (e) {
+    //     if (e.origin != "http://other.example.com") {
+    //       return;
+    //     }
+    //     // this will log "Jack"
+    //     console.log(JSON.parse(e.data).name);
+    //   };
+    //   // load previously saved data
+    //   win.postMessage(JSON.stringify({ key: 'storage', method: "get" }), "*");
+  </script>
+</body>
+
+</html>
