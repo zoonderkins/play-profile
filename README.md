@@ -20,3 +20,11 @@ You will need a local server to be able test this out.
 1. Live-server
 2. Python simple http server
 3. ngrok (https)
+
+### Git
+
+Git --local `user.name` and `user.email`
+```bash
+git config --local user.name "xxx"
+git config --local user.email "xxx@gmail.com"
+```
