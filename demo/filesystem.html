@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Demo oo's filesystem-html</title>
+</head>
+
+<body>
+  asdf
+  <script>
+    // Receive message
+    window.onmessage = function (e) {
+      var payload = JSON.parse(e.data)
+      console.log("payload1 ", payload)
+      switch (payload.method) {
+        case 'set':
+          localStorage.setItem(payload.key, JSON.stringify(payload.data))
+          console.log(`Method: ${payload.method} & data: ${JSON.stringify(payload.data)} & KEY: ${JSON.stringify(payload.key)}  `)
+          break
+        case 'get':
+          let parent = e.source
+          let data = localStorage.getItem(payload.key)
+          console.log(data)
+          parent.postMessage(data, "*")
+          break
+        case 'remove':
+          localStorage.removeItem(payload.key)
+          console.log('3')
+          break
+      }
+    }
+// Send message
+
+
+  </script>
+</body>
+
+</html>

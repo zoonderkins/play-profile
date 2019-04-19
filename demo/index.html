@@ -9,6 +9,8 @@
 </head>
 
 <body>
+  <h3>Demo page - Iframe </h3>
+  <hr>
 
   <div id="prevData">
 
@@ -18,9 +20,9 @@
     let prevData = document.querySelector('#prevData')
 
     let message, channel
-    let host = 'http://127.0.0.1'
-    let port = '5500'
-    const mount_url = `${host}:${port}/filesystem/index.html`
+    // let host = 'http://127.0.0.1'
+    // let port = '5500'
+    const mount_url = `https://ookangzheng.github.io/play-profile/demo`
     const iframe = document.createElement('iframe')
     iframe.src = mount_url
     iframe.style = 'border: 2px red solid; width: 80px; height: 80px;'
@@ -47,19 +49,9 @@
         let key = e.message ? 'message' : 'data';
         let data = e[key];
         console.log('parent message:', data)
-        //run function//
+        prevData.innerHTML = `Previous Data: ${data}`
       }, false);
     }, 2000);
-
-
-    // Load previous saved iframe localstorage data
-    // Load
-    // setTimeout(() => {
-
-    //   divData.innerHTML = ({ ...localStorage }) != null ? JSON.stringify({ ...localStorage }) : "No data"
-    // }, 2000);
-
-
 
   </script>
 </body>
