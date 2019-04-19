@@ -9,7 +9,8 @@
 </head>
 
 <body>
-
+  <h3>Local demo page - Iframe </h3>
+  <hr>
   <div id="prevData">
 
   </div>
@@ -47,7 +48,7 @@
         let key = e.message ? 'message' : 'data';
         let data = e[key];
         console.log('parent message:', data)
-        //run function//
+        prevData.innerHTML = `Previous Data: ${data}`
       }, false);
     }, 2000);
 

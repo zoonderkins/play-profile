@@ -2,6 +2,10 @@
 
 Related repo: [https://github.com/ethereum-play/play-bookmarks](https://github.com/ethereum-play/play-bookmarks)
 
+## Demo
+
+[https://want2.be/play-profile/](https://want2.be/play-profile/)
+
 ## How to
 
 Remember to replace this variables on your local testing machine
