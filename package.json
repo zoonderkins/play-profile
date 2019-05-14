@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "budo src/index.js:bundle.js --title $npm_package_name --force-default-index --open --live --ssl -- --full-paths",
-    "build": "browserify --full-paths index.js > bundle.js"
+    "build": "browserify src/index.js > bundle.js",
+    "rollup": "rollup src/index.js --format umd --name \"myBundle\" --file bundle.js"
   },
   "repository": {
     "type": "git",
