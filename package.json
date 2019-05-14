@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "play-profile",
+  "version": "1.0.0",
+  "description": "Related repo: [https://github.com/ethereum-play/play-bookmarks](https://github.com/ethereum-play/play-bookmarks)",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo src/index.js:bundle.js --title $npm_package_name --force-default-index --open --live --ssl -- --full-paths",
+    "build": "browserify --full-paths index.js > bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serapath-contribution/play-profile.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/serapath-contribution/play-profile/issues"
+  },
+  "homepage": "https://github.com/serapath-contribution/play-profile#readme",
+  "devDependencies": {
+    "budo": "^11.6.2"
+  }
+}
