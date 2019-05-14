@@ -11,38 +11,56 @@
 <body>
   <h3>Local demo page - Iframe </h3>
   <hr>
+  <p>
+    Input your filesystem URL:
+  </p>
+  <input size="100" type="text" id="frame" value="http://localhost:5500/filesystem/index.html">
+  <button> GO </button>
+  <hr>
+  <br>
   <div id="prevData">
 
   </div>
   <script>
 
     let prevData = document.querySelector('#prevData')
+    let inputURL = document.querySelector('#frame')
+    let btnGo = document.querySelector("button")
 
+    console.log(inputURL.value)
     let message, channel
     let host = 'http://127.0.0.1'
     let port = '5500'
-    const mount_url = `${host}:${port}/filesystem/index.html`
+    // const mount_url = `${host}:${port}/filesystem/index.html`
+    const mount_url = inputURL.value
     const iframe = document.createElement('iframe')
     iframe.src = mount_url
-    iframe.style = 'border: 2px red solid; width: 80px; height: 80px;'
+    // iframe.style = 'border: 2px red solid; width: 200px; height: 200px;'
     iframe.onload = send
     document.body.appendChild(iframe)
 
     // SEND
+    let pathOrigin = 'storage'
+    let counter = 0
+
     var obj = {
-      name: "Jack"
+      from: ['/', counter = counter + 1],
+      path: [`/${pathOrigin}`],
+      type: 'set',
+      object: {
+        learn: ['solidity']
+      },
     };
     channel = iframe.contentWindow
 
     function send(e) {
-
       // Save object to subdomain / inner Iframe
       channel.postMessage(JSON.stringify({ key: 'storage', method: "set", data: obj }), "*")
 
     }
     setTimeout(() => {
-      // console.log(channel.postMessage)
-      channel.postMessage(JSON.stringify({ key: 'storage', method: 'get' }), "*")
+      // console.log(JSON.stringify({ key: 'storage', method: 'get' }), "*")
+      console.log(channel.postMessage(JSON.stringify({ key: 'storage', method: 'get' }), "*"))
 
       window.addEventListener('message', function (e) {
         let key = e.message ? 'message' : 'data';

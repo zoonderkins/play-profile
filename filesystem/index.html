@@ -9,16 +9,42 @@
 </head>
 
 <body>
-  asdf
+  Im filesystem
+  <!-- <script src="script.js"></script> -->
+  <p id="message">
+
+  </p>
   <script>
     // Receive message
+    let msg = document.querySelector('#message')
+
     window.onmessage = function (e) {
+
       var payload = JSON.parse(e.data)
       console.log("payload1 ", payload)
       switch (payload.method) {
         case 'set':
-          localStorage.setItem(payload.key, JSON.stringify(payload.data))
-          console.log(`Method: ${payload.method} & data: ${JSON.stringify(payload.data)} & KEY: ${JSON.stringify(payload.key)}  `)
+          // console.log(payload.data.path[0].includes('storage'))
+          if (payload.data.path[0].includes('storage')) {
+            let d = payload.data
+            console.log(d.from[0])
+            console.log(d.path[0])
+            if (d.from[0] == '/' && d.path[0] == '/storage') {
+              localStorage.setItem(payload.key, JSON.stringify({
+                id: d.from[1],
+                body: true,
+                type: 'Done',
+              }))
+            }
+            // let _from, _path, _object = { payload.data.from, payload.data.path, payload.data.object }
+            // if (d.from[1] !== null) {
+            //   return d.from[1]
+            //   console.log(d.toString())
+            // }
+            // console.log("d", d)
+          }
+          // localStorage.setItem(payload.key, JSON.stringify(payload.data))
+          // console.log(`Method: ${payload.method} & data: ${JSON.stringify(payload.data)} & KEY: ${JSON.stringify(payload.key)}  `)
           break
         case 'get':
           let parent = e.source
